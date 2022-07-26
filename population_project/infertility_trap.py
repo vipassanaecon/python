@@ -40,3 +40,39 @@ plt.xlabel("Year")
 plt.ylabel("Average Fertility Rate")
 plt.axis([0,50, 2.5, 6])
 plt.show()
+
+
+#using World Bank weighted average
+#extract data and create dataframe
+dfworld = pd.read_csv(r"C:\Users\straw\vipassanaecon projects\vipassanaecon\Website\python\infertility_trap\World Bank Data\Data_Extract_From_World_Development_Indicators\7f903c1f-0556-4e9e-a6ff-eaadc5f7603c_Data.csv", delimiter=",", nrows=1, encoding= 'unicode_escape')
+dfworld.head()
+
+dfworldtotal = dfworld.transpose()
+dfworldtotal
+
+# Drop first several rows
+dfworldtotal.drop(index=dfworldtotal.index[0:4], 
+        axis=0, 
+        inplace=True)
+dfworldtotal
+
+dfworldtotal = dfworldtotal.iloc[:-2 , :]
+#dfworldtotal = dfworldtotal.replace(r'^\s*$', np.nan, regex=True)
+#dftotal['total'] = dftotal['total'].astype(int)
+dfworldtotal[0] = dfworldtotal[0].astype('float')
+
+print(dfworldtotal.dtypes) 
+dfworldtotal
+
+dfworldtotal.plot.line()
+
+plt.figure(figsize=(100,40))
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.plot(dfworldtotal) 
+plt.title("Global Average Fertility Rate")
+plt.xlabel("Year")
+plt.ylabel("Average Fertility Rate")
+plt.axis([0,50, 2.5, 6])
+plt.show()
+
